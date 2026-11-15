@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Корзина" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <ListView Name="CartList" Grid.Row="1" Background="#E4EFFA" Margin="10" HorizontalAlignment="Center">
+        <ListView Name="CartList" Grid.Row="1" Background="#E4EFFA" Margin="10" Width="550">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

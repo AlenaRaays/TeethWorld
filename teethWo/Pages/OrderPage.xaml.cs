@@ -29,20 +29,23 @@ namespace teethWo.Pages
         {
             InitializeComponent();
             logineduser = user;
+            _context.Order.Load();
 
-            if (user.idRole == 3)
+            if (user.idRole != 5 || user.idRole != 1)
             {
                 orders = AppConnect.teethworld.Order.Where(o => o.idUser == user.id).ToList();
                 OrderList.IsReadOnly = true;
+
+                OrderList.ItemsSource = orders;
+                UserColumn.ItemsSource = AppConnect.teethworld.User.Where(o => o.id == user.id).ToList();
             }
             else
             {
                 orders = AppConnect.teethworld.Order.ToList();
-            }
 
-            _context.Order.Load();
-            OrderList.ItemsSource = _context.Order.Local.ToBindingList();
-            UserColumn.ItemsSource = _context.User.ToList();
+                OrderList.ItemsSource = _context.Order.Local.ToBindingList();
+                UserColumn.ItemsSource = _context.User.ToList();
+            }
         }
 
         public void SearchOrders()
@@ -70,7 +73,7 @@ namespace teethWo.Pages
 
         private void OrderList_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            if (logineduser == null || (logineduser.idRole != 1 && logineduser.idRole != 2))
+            if (logineduser == null || (logineduser.idRole != 1 && logineduser.idRole != 5))
             {
                 MessageBox.Show("Изменять содержимое заказа может только менеджер или администратор!");
                 e.Cancel = true;

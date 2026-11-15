@@ -31,7 +31,6 @@ namespace teethWo.Pages
             logineduser = user;
             tableName = table;
 
-            // F2: удаление запрещено Менеджеру. Разрешаем только Админу (idRole=1)
             if (user.idRole != 1)
                 DelBtn.Visibility = Visibility.Collapsed;
 
@@ -41,7 +40,6 @@ namespace teethWo.Pages
 
         private void LoadTable()
         {
-            // просто, через switch — как у тебя
             switch (tableName)
             {
                 case "Product":
@@ -69,7 +67,7 @@ namespace teethWo.Pages
                     Table.ItemsSource = _context.Order.Local.ToBindingList();
                     break;
                 case "User":
-                    // F2: только Админ может трогать пользователей
+
                     if (logineduser.idRole != 1)
                     {
                         MessageBox.Show("Управление пользователями доступно только администратору");
@@ -97,7 +95,7 @@ namespace teethWo.Pages
 
         private void DelBtn_Click(object sender, RoutedEventArgs e)
         {
-            // F2: удаление только Админу (кнопка и так скрыта, но перестрахуемся)
+
             if (logineduser.idRole != 1)
             {
                 MessageBox.Show("Удалять записи может только администратор");
@@ -119,7 +117,6 @@ namespace teethWo.Pages
             }
             catch (Exception ex)
             {
-                // F2: бизнес-ограничение — например, нельзя удалить продукт, который есть на складе
                 MessageBox.Show("Невозможно удалить запись: " + ex.Message);
             }
         }
