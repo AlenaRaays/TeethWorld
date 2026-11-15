@@ -31,7 +31,7 @@ namespace teethWo.Pages
             logineduser = user;
             _context.Order.Load();
 
-            if (user.idRole != 5 || user.idRole != 1)
+            if (user.idRole != 5 && user.idRole != 1)
             {
                 orders = AppConnect.teethworld.Order.Where(o => o.idUser == user.id).ToList();
                 OrderList.IsReadOnly = true;
